@@ -18,6 +18,9 @@ streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 # pulling the data into a pandas dataframe
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 
+# setting an index on Fruit for the interactive selector, so it shows fruit names instead on numbers
+my_fruit_list = my_fruit_list.set_index('Fruit')
+
 # ask the streamlit library to display it on the page
 #streamlit.dataframe(my_fruit_list)
 
