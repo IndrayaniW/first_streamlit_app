@@ -28,7 +28,15 @@ my_fruit_list = my_fruit_list.set_index('Fruit')
 #streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index))
 # filter the table data based on the fruits a customer will choose, so we'll pre-populate the list to set an example for the customer
 # below: preselecting some fruits
-streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Avocado','Strawberries'])
+fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Avocado','Strawberries'])
 
 # Display the table on the page.
-streamlit.dataframe(my_fruit_list)
+#streamlit.dataframe(my_fruit_list)
+
+# showing only the selected fruits in the table by connecting the table with the pick list
+fruits_to_show = my_fruit_list.loc[fruits_selected]
+
+# display the selected fruits only
+streamlit.dataframe(fruits_to_show)
+
+
