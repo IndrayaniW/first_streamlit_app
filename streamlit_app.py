@@ -2,6 +2,7 @@ import streamlit
 import pandas
 import requests
 import snowflake.connector
+from urllib.error import URLError # library to control the flow of changes (for error message handling)
 
 #streamlit.title('My Parents New Healthy Diner - Changes made')
 streamlit.title("My Mom's New Healthy Diner")
@@ -68,6 +69,11 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_cho
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # output it in the screen as a table / dataframe
 streamlit.dataframe(fruityvice_normalized)
+
+# to avoid code being run each time the code interacts with the streamlit app, in this case inserting the same value each time, put a stop
+# don't run anything past here while we troubleshoot
+streamlit.stop()
+
 
 ## querying data from Snowflake - after having connected SF to Streamlit
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
