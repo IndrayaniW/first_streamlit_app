@@ -110,7 +110,7 @@ if streamlit.button('Get Fruit Load List'):
  my_data_rows = get_fruit_load_list()
  streamlit.dataframe(my_data_rows)# shows table / dataframe format
  
-streamlit.stop()
+#streamlit.stop()
 
 # adding new section as entry box to allow adding fruits
 fruit_added = streamlit.text_input('What fruit would you like to add?') # using text input
