@@ -46,16 +46,26 @@ streamlit.dataframe(fruits_to_show)
 streamlit.header('Fruityvice Fruit Advice!') # positioning makes a difference in the display
 #fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon") # fixed value watermelon
 
-
-# adding new section to display fruityvice api response
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi') # using text input
-streamlit.write('The user entered ', fruit_choice)
+try:
+ 
+ # adding new section to display fruityvice api response
+ fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi') # using text input
+ if not fruit_choice:
+  streamlit.error("Please select a fruit to get information.")
+ else:
+  fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_choice)# for dynamic variable setting based on user input
+  fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+  streamlit.dataframe(fruityvice_normalized)
+ 
+ except URLError as e:
+  streamlit.error()
+ #streamlit.write('The user entered ', fruit_choice)
 
 
 #removed the line of raw JSON, and separate the base URL from the fruit name (which will make it easier to use a variable there)
 #fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+"kiwi")# for fixed variable setting
 #streamlit.text(fruityvice_response)# this only returns the response '<Response [200]>' on the webpage
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_choice)# for dynamic variable setting based on user input
+#fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_choice)# for dynamic variable setting based on user input
 
 # adding .json() to show the contents of the json file instead of the response 200
 #streamlit.text(fruityvice_response.json())
@@ -66,9 +76,9 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_cho
 ## making the Fruityvice Data Looking a Little Nicer
 
 # putting the json data format into a pandas dataframe / taking the json version of the response and normalize it
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+#fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # output it in the screen as a table / dataframe
-streamlit.dataframe(fruityvice_normalized)
+#streamlit.dataframe(fruityvice_normalized)
 
 # to avoid code being run each time the code interacts with the streamlit app, in this case inserting the same value each time, put a stop
 # don't run anything past here while we troubleshoot
