@@ -50,7 +50,7 @@ try:
  
  # adding new section to display fruityvice api response
  #fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi') # using text input with preselected value Kiwi
-  fruit_choice = streamlit.text_input('What fruit would you like information about?')  # using text input without preselected value
+ fruit_choice = streamlit.text_input('What fruit would you like information about?')  # using text input without preselected value
  if not fruit_choice:
   streamlit.error("Please select a fruit to get information.")
  else:
