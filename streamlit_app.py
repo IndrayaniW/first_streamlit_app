@@ -92,7 +92,7 @@ except URLError as e:
 
 # to avoid code being run each time the code interacts with the streamlit app, in this case inserting the same value each time, put a stop
 # don't run anything past here while we troubleshoot
-streamlit.stop()
+#streamlit.stop()
 
 
 
@@ -104,11 +104,13 @@ def get_fruit_load_list():
   my_cur.execute("select * from fruit_load_list")# querying actual data from SF
   return my_cur.fetchall()
  
-# add a button to lad the fruit
+# add a button to load the fruit
 if streamlit.button('Get Fruit Load List'):
  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
  my_data_rows = get_fruit_load_list()
  streamlit.dataframe(my_data_rows)# shows table / dataframe format
+ 
+streamlit.stop()
 
 # adding new section as entry box to allow adding fruits
 fruit_added = streamlit.text_input('What fruit would you like to add?') # using text input
