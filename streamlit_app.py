@@ -42,6 +42,12 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # display the selected fruits only
 streamlit.dataframe(fruits_to_show)
 
+# create the repeatable code block (function)
+def get_fruityvice_data(this_fruit_choice):
+ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_choice)# for dynamic variable setting based on user input
+ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+ return fruityvice_normalized
+
 # 11.3.23 new section to display fruityvice api response. Shows <Response [200]> in the streamlit-created web-app
 streamlit.header('Fruityvice Fruit Advice!') # positioning makes a difference in the display
 #fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon") # fixed value watermelon
@@ -51,12 +57,15 @@ try:
  # adding new section to display fruityvice api response
  #fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi') # using text input with preselected value Kiwi
  fruit_choice = streamlit.text_input('What fruit would you like information about?')  # using text input without preselected value
+ 
  if not fruit_choice:
   streamlit.error("Please select a fruit to get information.")
  else:
-  fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_choice)# for dynamic variable setting based on user input
-  fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-  streamlit.dataframe(fruityvice_normalized)
+  #fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_choice)# for dynamic variable setting based on user input
+  #fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+  #streamlit.dataframe(fruityvice_normalized)
+  back_from_function = get_fruityvice_data(fruit_choice)
+  streamlit.dataframe(back_from_function)
  
 except URLError as e:
  streamlit.error()
