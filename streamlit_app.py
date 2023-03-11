@@ -43,6 +43,9 @@ streamlit.dataframe(fruits_to_show)
 # 11.3.23 new section to display fruityvice api response. Shows <Response [200]> in the streamlit-created web-app
 streamlit.header('Fruityvice Fruit Advice!') # positioning makes a difference in the display
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-streamlit.text(fruityvice_response)
+#streamlit.text(fruityvice_response)# this only returns the response '<Response [200]>' on the webpage
+
+# adding .json() to show the contents of the json file instead of the response 200
+streamlit.text(fruityvice_response.json())
 
 
