@@ -115,7 +115,8 @@ if streamlit.button('Get Fruit Load List'):
 # adding new section as entry box to allow adding fruits
 def insert_row_snowflake(new_fruit):
  with my_cnx.cursor() as my_cur:
-  my_cur.execute("insert into fruit_load_list values ('from streamlit')")
+  #my_cur.execute("insert into fruit_load_list values ('from streamlit')")# fixed written input into table for testing
+  my_cur.execute("insert into fruit_load_list values ('" + new_fruit+"')")# dynamic insertion using the function param
   return "Thanks for adding "+ add_my_fruit
  
  
